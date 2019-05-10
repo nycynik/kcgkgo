@@ -1,0 +1,36 @@
+client-id: goapi
+client-secret: 1ac9ee0e-d7ea-4e3c-ad23-7d69bf63b27c # require for access_type: confidential
+# Note the redirection-url is optional, it will default to the X-Forwarded-Proto / X-Forwarded-Host r the
+# URL scheme and host not found
+discovery-url: http://localhost:9081/auth/realms/Development
+enable-default-deny: true
+encryption_key: AgXa7xRcoClDEU0ZDSH4X0XhL5Qy2Z2j
+listen: 127.0.0.1:3000
+redirection-url: http://127.0.0.1:3000
+upstream-url: http://127.0.0.1:8000
+resources:
+  - uri: /admin*
+    methods:
+      - GET
+#    roles:
+#      - client:test1
+#      - client:test2
+    require-any-role: true
+    groups:
+      - admins
+      - users
+  - uri: /backend*
+    roles:
+      - client:test1
+  - uri: /public/*
+    white-listed: true
+  - uri: /favicon
+    white-listed: true
+  - uri: /css/*
+    white-listed: true
+  - uri: /img/*
+    white-listed: true
+headers:
+  myheader1: value_1
+  myheader2: value_2
+SecureCookie: false

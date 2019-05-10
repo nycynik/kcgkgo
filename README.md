@@ -2,6 +2,7 @@
 
 A simple go service that uses keyckloak gatekeeper to keep it safe.  Includes docker setup for keycloak as well to make local dev easy.
 
+Work In Progress, just learning go.
 
 # setup
 
@@ -12,7 +13,15 @@ or you can do so with this command.
 
 # go setup
 
-goapi
+You need several environemtn variables for this to run:
+
+```
+export TZ="America/Los_Angeles"
+export PROJECTDIR="/path to project"
+export PGSQL_ROOT_PASSWORD="password"
+export KC_ADMIN_PASSWORD="password"
+
+```
 
 # Keycloak setup
 

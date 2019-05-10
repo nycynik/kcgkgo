@@ -8,6 +8,7 @@ services:
 
   postgres:
     image: postgres
+    container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -18,6 +19,7 @@ services:
 
   keycloak:
     image: jboss/keycloak
+    container_name: keycloak
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
@@ -36,3 +38,11 @@ services:
     depends_on:
       - postgres
 
+  keycloak-gatekeeper:
+    container_name: gatekeeper
+    image: bitnami/keycloak-gatekeeper:latest
+    ports:
+      - '3000:3000'
+    command: /keycloak-proxy --config /opt/bitnami/keycloak-gatekeeper/config.yaml
+    volumes:
+      - ${PROJECTDIR}/docker/config.yaml:/opt/bitnami/keycloak-gatekeeper/config.yaml:ro
